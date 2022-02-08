@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body {
+    background-color: rgb(247, 242, 242);
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.navbar{ justify-content: space-between;}
+    
+.navbar a{
+        padding-right: 1rem;
+    }

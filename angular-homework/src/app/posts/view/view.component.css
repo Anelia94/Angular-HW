@@ -1,0 +1,14 @@
+.container{
+    margin-top: 10em;
+    display: flex;
+    justify-content: center;
+}
+.card {
+    max-width: 400px;
+    background-color: #7b1fa2af;
+  }
+
+  .buttons {
+    display: flex;
+   justify-content:space-around ;
+  }

@@ -1,0 +1,11 @@
+.mainContent{
+    margin-top: 15em;
+    display: flex;
+    flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+.mainContent h1{
+    color: red;
+}

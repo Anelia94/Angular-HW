@@ -1,0 +1,23 @@
+<mat-toolbar color="primary" class="navbar">
+    <div>My app</div>
+    <div>
+        <a mat-flat-button href="./" color="primary" target="_self">HOME</a>
+        <a mat-flat-button href="./add" color="primary" target="_self">ADD POST</a>
+    </div>
+</mat-toolbar>;
+<div class="container">
+    <div *ngIf="!post">
+        <mat-spinner></mat-spinner>
+    </div>
+    <mat-card *ngIf="post" class="card">
+        <mat-card-title>Title: {{post.title}}}</mat-card-title>
+        <mat-card-subtitle>Author: {{post.userId}}</mat-card-subtitle>
+        <mat-card-content>
+            <p>Description: {{post.body}}</p>
+        </mat-card-content>
+        <mat-card-actions class="buttons">
+            <a mat-flat-button href="./edit/{{post.id}}" color="primary" target="_self">Edit</a>
+            <a mat-flat-button (click)="openDialog()" color="primary" target="_self">Delete</a>
+        </mat-card-actions>
+    </mat-card>
+</div>

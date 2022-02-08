@@ -1,0 +1,36 @@
+<mat-toolbar color="primary" class="navbar">
+    <div>My app</div>
+    <div>
+        <a mat-flat-button href="./" color="primary" target="_self">HOME</a>
+        <a mat-flat-button href="./index" color="primary" target="_self">INDEX</a>
+    </div>
+</mat-toolbar>
+<mat-card class="container">
+<mat-card-title>Create new posts!</mat-card-title>
+<form [formGroup]="addPostForm" class="form" (submit)="createPost()">
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Title</mat-label>
+        <input type="text" matInput formControlName="titleFormControl" placeholder="My title" formControlName="title">
+       <mat-error *ngIf="titleFormControl.hasError('required')">
+        Title <strong>required</strong>
+       </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Description</mat-label>
+      <input type="text" matInput formControlName="descriptionFormControl" placeholder="My description" formControlName="body">
+      <mat-error *ngIf="!descriptionFormControl.hasError('required') && !descriptionFormControl.hasError('minlength')">
+      Please enter a valid description 
+    </mat-error>
+    <mat-error *ngIf="descriptionFormControl.hasError('required')">
+      Description <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="descriptionFormControl.hasError('minlength')">
+      Description <strong>should be 10 symbols at least</strong>
+    </mat-error>
+  </mat-form-field>
+  <div>
+  <button mat-raised-button color="primary">Create Post!</button>
+</div>
+</form>
+</mat-card>

@@ -1,0 +1,11 @@
+.container{
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+   width: 80%;
+   background-color:#7b1fa2;
+  }
