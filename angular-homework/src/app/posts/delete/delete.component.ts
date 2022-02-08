@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { PostsService } from '../posts.service';
 
 @Component({
@@ -11,10 +11,11 @@ import { PostsService } from '../posts.service';
 export class DeleteComponent implements OnInit, OnDestroy {
   private postId: string = '';
   private destroy$ = new Subject();
+  private paramsSubscription: Subscription = new Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
     private postsService: PostsService,
-    private router:Router) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     this.deletePost();
@@ -22,10 +23,11 @@ export class DeleteComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy$.next(true);
+    this.paramsSubscription.unsubscribe();
   }
 
   deletePost() {
-    this.activatedRoute.params.subscribe(data => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe(data => {
       this.postId = data['id'];
     })
 

@@ -13,11 +13,10 @@ import { PostsService } from '../posts.service';
 })
 export class IndexComponent implements OnInit, OnDestroy {
   public postsData: Post[] = [];
-  public displayedColumns = ['id', 'title', 'desc', 'actions'];
+  public displayedColumns: string[] = ['id', 'title', 'desc', 'actions'];
 
   private destroy$ = new Subject();
-  private postId: string = '';
-
+  
   constructor(private postsService: PostsService,
     public dialog: MatDialog,
     private router: Router) { }

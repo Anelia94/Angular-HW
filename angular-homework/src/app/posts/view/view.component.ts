@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { Post } from '../posts';
 import { PostsService } from '../posts.service';
@@ -16,6 +16,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject();
   private postId: string = '';
+  private paramsSubscription: Subscription = new Subscription;
 
   constructor(private postsService: PostsService,
     private activatedRoute: ActivatedRoute,
@@ -38,14 +39,15 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy$.next(true);
+    this.paramsSubscription.unsubscribe();
   }
 
-  openDialog() {
+  openDialog(id:string) {
     let dialogRef = this.dialog.open(DialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'true') {
-        const url: string = `/delete/${this.postId}`;
+        const url: string = `/delete/${id}`;
         this.router.navigateByUrl(url);
       } else {
         const url: string = `/view/${this.postId}`;

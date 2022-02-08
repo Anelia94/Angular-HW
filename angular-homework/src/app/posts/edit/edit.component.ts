@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { PostsService } from '../posts.service';
 
 @Component({
@@ -17,6 +17,8 @@ export class EditComponent implements OnInit {
   private destroy$ = new Subject();
   private postId: string = '';
   private post: any;
+  private paramsSubscription: Subscription = new Subscription;
+
 
   constructor(private formBuilder: FormBuilder,
     private postsService: PostsService,
@@ -29,7 +31,7 @@ export class EditComponent implements OnInit {
       body: this.descriptionFormControl
     })
 
-    this.activatedRoute.params.subscribe(data => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe(data => {
       this.postId = data['id'];
     })
 
@@ -49,6 +51,7 @@ export class EditComponent implements OnInit {
 
   ngOnDestroy():void {
     this.destroy$.next(true);
+    this.paramsSubscription.unsubscribe();
   }
 
   isFormValid() {
