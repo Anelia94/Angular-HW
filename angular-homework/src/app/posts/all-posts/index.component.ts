@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { Post } from '../posts';
@@ -14,23 +14,20 @@ import { PostsService } from '../posts.service';
 export class IndexComponent implements OnInit, OnDestroy {
   public postsData: Post[] = [];
   public displayedColumns = ['id', 'title', 'desc', 'actions'];
+
   private destroy$ = new Subject();
   private postId: string = '';
 
   constructor(private postsService: PostsService,
     public dialog: MatDialog,
-    private activatedRoute: ActivatedRoute) { }
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(data => {
-      this.postId = data['id'];
-    })
-
     this.postsService.getPosts()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res: Post[]) => this.postsData = res,
-        error: () => window.location.href = './error'
+        error: () => this.router.navigateByUrl('/error'),
       });
   }
 
@@ -42,11 +39,11 @@ export class IndexComponent implements OnInit, OnDestroy {
     let dialogRef = this.dialog.open(DialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      
       if (result == 'true') {
-        window.location.href = `./delete/${id}`;
+        const url: string = `/delete/${id}`;
+        this.router.navigateByUrl(url);
       } else {
-        window.location.href = `./view/${this.postId}`;
+        this.router.navigateByUrl('/index');
       }
     })
   }

@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { PostsService } from '../posts.service';
 
@@ -13,7 +13,8 @@ export class DeleteComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
   constructor(private activatedRoute: ActivatedRoute,
-    private postsService: PostsService) { }
+    private postsService: PostsService,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.deletePost();
@@ -32,9 +33,8 @@ export class DeleteComponent implements OnInit, OnDestroy {
       this.postsService.deletePost(this.postId)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
-          next: () => window.location.href = './',
-          error: () => window.location.href = './error',
-          complete: () => console.log('HTTP request completed')
+          next: () => this.router.navigateByUrl('/'),
+          error: () => this.router.navigateByUrl('/error'),
         })
     }
   }

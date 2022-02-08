@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { PostsService } from '../posts.service';
 
@@ -10,16 +10,18 @@ import { PostsService } from '../posts.service';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
+  public titleFormControl = new FormControl('', [Validators.required]);
+  public descriptionFormControl = new FormControl('', [Validators.required, Validators.minLength(10)]);
   public editPostForm: FormGroup = new FormGroup({});
+
   private destroy$ = new Subject();
   private postId: string = '';
   private post: any;
-  public titleFormControl = new FormControl('', [Validators.required]);
-  public descriptionFormControl = new FormControl('', [Validators.required, Validators.minLength(10)]);
 
   constructor(private formBuilder: FormBuilder,
     private postsService: PostsService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.editPostForm = this.formBuilder.group({
@@ -34,19 +36,18 @@ export class EditComponent implements OnInit {
     this.post = this.postsService.getPostById(this.postId);
   }
 
-  editPost() {
+  editPost(){
     if (this.isFormValid()) {
       this.postsService.editPost(this.editPostForm.value)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
-          next: () => window.location.href = './',
-          error: () => window.location.href = './error'
+          next: () => this.router.navigate(['/']),
+          error: () => this.router.navigate(['/','error']),
         })
     }
-
   }
 
-  ngOnDestroy() {
+  ngOnDestroy():void {
     this.destroy$.next(true);
   }
 
