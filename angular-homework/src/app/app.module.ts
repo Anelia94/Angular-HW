@@ -14,7 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './shared/material.module';
 import { EditComponent } from './posts/edit/edit.component';
-import { DeleteComponent } from './posts/delete/delete.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 
@@ -26,7 +25,6 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     AddComponent,
     ViewComponent,
     EditComponent,
-    DeleteComponent,
     DialogComponent,
     ErrorPageComponent
   ],

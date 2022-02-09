@@ -18,7 +18,7 @@ export class AddComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
     private postService: PostsService,
-    private router: Router) { }
+    private router:Router) { }
 
   ngOnInit(): void {
     this.addPostForm = this.formBuilder.group({
@@ -30,11 +30,11 @@ export class AddComponent implements OnInit, OnDestroy {
   createPost() {
     if (this.isFormValid()) {
       this.postService.addPost(this.addPostForm.value)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: () => this.router.navigate(['/']),
-          error: () => this.router.navigate(['/', 'error']),
-        });
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => this.router.navigate(['/']),
+          error: () => this.router.navigate(['/','error']),
+      });
     }
   }
 

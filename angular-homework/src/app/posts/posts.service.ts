@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../shared/services/base-service';
 import { Post } from './posts';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { postsUrl } from './shared/config';
 
 @Injectable()
@@ -30,8 +30,10 @@ export class PostsService extends BaseService {
     return this.put(post);
   }
 
-  deletePost(id: string) {
-    this.url = `${this.url}/${id}`;
+  deletePost(id?: string) {
+    if (id) {
+      this.url = `${this.url}/${id}`;
+    }
     return this.delete();
   }
 }
