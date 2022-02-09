@@ -49,16 +49,16 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'true') {
-        this.deletePostFromTable();
+        this.deleteView();
         this.router.navigateByUrl('./home');
       } else {
-        const url: string = `/view/${this.postId}`;
+        const url: string = `./view/${this.postId}`;
         this.router.navigateByUrl(url);
       }
     })
   }
 
-  deletePostFromTable() {
+  deleteView() {
     this.postsSubscription = this.postsService.deletePost()
       .pipe(takeUntil(this.destroy$))
       .subscribe({

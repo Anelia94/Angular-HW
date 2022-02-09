@@ -1,21 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddComponent } from './add/add.component';
-import { EditComponent } from './edit/edit.component';
-import { IndexComponent } from './all-posts/index.component';
-import { ViewComponent } from './view/view.component';
+import { routingPostsComponent } from '../app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { DeleteComponent } from './delete/delete.component';
 
 @NgModule({
   declarations: [
     CommonModule,
-    AddComponent,
-    EditComponent,
-    IndexComponent,
-    ViewComponent,
     FormsModule,
-    DeleteComponent
+    routingPostsComponent
   ],
   imports: [
     CommonModule

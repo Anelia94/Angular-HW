@@ -10,7 +10,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'add', component: AddComponent },
-  { path: 'index',component: IndexComponent},
+  { path: 'index', component: IndexComponent },
   { path: 'view/:id', component: ViewComponent },
   { path: 'edit/:id', component: EditComponent },
   { path: 'error', component: ErrorPageComponent },
@@ -22,6 +22,6 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class AppRoutingModule {
-
-}
+export class AppRoutingModule { }
+export const routingComponent = [HomeComponent, ErrorPageComponent]
+export const routingPostsComponent = [AddComponent, EditComponent, IndexComponent, ViewComponent];
